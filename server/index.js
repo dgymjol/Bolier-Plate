@@ -1,6 +1,5 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require("express");
+const app = express();
 const config = require('./config/key');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -18,13 +17,23 @@ app.use(cookieParser());
 const mongoose = require('mongoose');
 
 mongoose.connect(config.mongoURI, {
-    useNewUrlParser: true, useUnifiedTopology : true, useCreateIndex: true, useFindAndModify: false
-}).then(()=> console.log('MongoDB Connected...'))
+    useNewUrlParser: true, 
+    useUnifiedTopology : true, 
+    useCreateIndex: true, 
+    useFindAndModify: false
+})
+.then(()=> console.log('MongoDB Connected...'))
   .catch(err=> console.log(err))
 
 
 app.get('/', (req, res) => {
   res.send('Hello World!!!! 새해 복 많이!!')
+})
+
+
+app.get('/api/hello', (req, res)=>{
+
+  res.send("안녕하세요~")
 })
 
 // post이고 end-point가 /register
@@ -102,6 +111,7 @@ app.get('/api/users/logout', auth, (req, res)=>{
     })
 })
 
+const port = 5000;
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
